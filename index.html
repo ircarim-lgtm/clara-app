@@ -15,68 +15,32 @@
     --border:rgba(181,105,74,0.15); --border-s:rgba(181,105,74,0.25);
     --shadow:rgba(46,31,21,0.08);
   }
-
   * { margin:0; padding:0; box-sizing:border-box; }
   html, body { height:100%; overflow:hidden; }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); display:flex; flex-direction:column; }
+  body::before { content:''; position:fixed; inset:0; pointer-events:none; z-index:0; background-image: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(181,105,74,0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 80% 90%, rgba(212,146,122,0.05) 0%, transparent 60%); }
 
-  body {
-    font-family:'DM Sans',sans-serif;
-    background:var(--bg); color:var(--text);
-    display:flex; flex-direction:column;
-  }
-
-  body::before {
-    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
-    background-image:
-      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(181,105,74,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 90%, rgba(212,146,122,0.05) 0%, transparent 60%);
-  }
-
-  /* ===== SPLASH ===== */
-  #splash {
-    position:fixed; inset:0; z-index:100;
-    background:var(--bg); display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    text-align:center; padding:40px 24px;
-    transition:opacity 0.7s ease, transform 0.7s ease;
-  }
+  /* SPLASH */
+  #splash { position:fixed; inset:0; z-index:100; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px 24px; transition:opacity 0.7s ease, transform 0.7s ease; }
   #splash.hidden { opacity:0; transform:scale(1.03); pointer-events:none; }
-
   .splash-ornament { display:flex; align-items:center; gap:12px; margin:0 auto 28px; animation:fadeIn 1.5s ease; }
   .orn-line { width:40px; height:1px; background:linear-gradient(to right,transparent,var(--terra)); }
   .orn-line.r { background:linear-gradient(to left,transparent,var(--terra)); }
   .orn-dot { width:6px; height:6px; background:var(--terra); transform:rotate(45deg); }
-
   .splash-eyebrow { font-size:9px; letter-spacing:6px; text-transform:uppercase; color:var(--terra); margin-bottom:18px; animation:fadeUp 1s ease 0.2s both; font-weight:500; }
   .splash-name { font-family:'Playfair Display',serif; font-size:clamp(72px,17vw,120px); font-weight:900; color:var(--text); letter-spacing:-3px; line-height:1; margin-bottom:16px; animation:fadeUp 1s ease 0.35s both; }
   .splash-name em { color:var(--terra); font-style:italic; }
   .splash-tagline { font-family:'Lora',serif; font-style:italic; font-size:clamp(14px,2.5vw,17px); color:var(--text-soft); max-width:380px; line-height:1.75; margin-bottom:44px; animation:fadeUp 1s ease 0.5s both; }
-
   .splash-modes { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; max-width:560px; margin-bottom:36px; animation:fadeUp 1s ease 0.65s both; }
   .mode-chip { font-size:12px; color:var(--text-mid); border:1.5px solid var(--border-s); background:var(--surface); padding:8px 15px; border-radius:40px; cursor:pointer; transition:all 0.22s; box-shadow:0 2px 8px var(--shadow); }
   .mode-chip:hover, .mode-chip.active { color:var(--terra); border-color:var(--terra); background:var(--terra-pale); box-shadow:0 4px 16px rgba(181,105,74,0.15); }
-
   .splash-btn { font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; letter-spacing:3px; text-transform:uppercase; background:var(--terra); color:white; border:none; padding:16px 44px; cursor:pointer; border-radius:40px; transition:all 0.3s; box-shadow:0 6px 24px rgba(181,105,74,0.3); animation:fadeUp 1s ease 0.8s both; }
-  .splash-btn:hover { background:var(--terra-l); transform:translateY(-2px); box-shadow:0 10px 32px rgba(181,105,74,0.35); }
+  .splash-btn:hover { background:var(--terra-l); transform:translateY(-2px); }
   .splash-note { font-size:11px; color:var(--text-dim); margin-top:14px; animation:fadeUp 1s ease 0.9s both; }
 
-  /* ===== SETUP ===== */
-  #setup { position:fixed; inset:0; z-index:90; background:var(--bg); display:none; flex-direction:column; align-items:center; justify-content:center; padding:40px 24px; text-align:center; }
-  #setup.visible { display:flex; }
-  .setup-card { background:var(--surface); border-radius:16px; padding:40px 36px; max-width:440px; width:100%; box-shadow:0 8px 48px var(--shadow); border:1px solid var(--border); }
-  .setup-icon { width:56px; height:56px; border-radius:50%; background:var(--terra-pale); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:22px; font-weight:900; color:var(--terra); margin:0 auto 20px; }
-  .setup-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--text); margin-bottom:8px; }
-  .setup-sub { font-size:13px; color:var(--text-soft); line-height:1.7; margin-bottom:24px; }
-  .setup-input { width:100%; background:var(--bg2); border:1.5px solid var(--border-s); color:var(--text); font-family:'DM Sans',sans-serif; font-size:13px; padding:13px 16px; border-radius:10px; outline:none; margin-bottom:14px; letter-spacing:1px; transition:border-color 0.2s; }
-  .setup-input:focus { border-color:var(--terra); }
-  .setup-btn { width:100%; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; letter-spacing:3px; text-transform:uppercase; background:var(--terra); color:white; border:none; padding:14px; cursor:pointer; border-radius:10px; transition:all 0.3s; box-shadow:0 4px 16px rgba(181,105,74,0.25); }
-  .setup-btn:hover { background:var(--terra-l); }
-  .setup-link { display:block; font-size:11px; color:var(--terra-d); margin-top:14px; text-decoration:none; opacity:0.7; transition:opacity 0.2s; }
-  .setup-link:hover { opacity:1; }
-
-  /* ===== NAME CAPTURE ===== */
-  #nameCapture { position:fixed; inset:0; z-index:85; background:var(--bg); display:none; flex-direction:column; align-items:center; justify-content:center; padding:40px 24px; text-align:center; animation:fadeIn 0.5s ease; }
-  #nameCapture.visible { display:flex; }
+  /* NAME CAPTURE */
+  #nameCapture { position:fixed; inset:0; z-index:90; background:var(--bg); display:none; flex-direction:column; align-items:center; justify-content:center; padding:40px 24px; text-align:center; }
+  #nameCapture.visible { display:flex; animation:fadeIn 0.5s ease; }
   .name-card { background:var(--surface); border-radius:20px; padding:44px 36px; max-width:420px; width:100%; box-shadow:0 8px 48px var(--shadow); border:1px solid var(--border); }
   .name-avatar { width:64px; height:64px; border-radius:50%; background:var(--terra-pale); border:3px solid var(--terra); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:26px; font-weight:900; color:var(--terra); margin:0 auto 20px; box-shadow:0 4px 16px rgba(181,105,74,0.2); }
   .name-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--text); margin-bottom:8px; }
@@ -89,7 +53,7 @@
   .name-skip { display:block; font-size:11px; color:var(--text-dim); margin-top:12px; cursor:pointer; transition:color 0.2s; background:none; border:none; width:100%; }
   .name-skip:hover { color:var(--text-soft); }
 
-  /* ===== MAIN APP ===== */
+  /* APP */
   #app { display:none; flex-direction:column; height:100vh; position:relative; z-index:1; }
   #app.visible { display:flex; }
 
@@ -101,7 +65,7 @@
   .header-name { font-family:'Playfair Display',serif; font-size:17px; font-weight:700; color:var(--text); letter-spacing:-0.3px; line-height:1; }
   .header-status { display:flex; align-items:center; gap:5px; font-size:10px; color:var(--text-soft); margin-top:2px; }
   .status-dot { width:6px; height:6px; border-radius:50%; background:#5cb85c; animation:pulse 2.5s infinite; }
-  .header-mode-btn { font-size:11px; font-weight:500; letter-spacing:0.5px; color:var(--terra-d); background:var(--terra-pale); border:1.5px solid rgba(181,105,74,0.3); padding:7px 14px; border-radius:20px; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:6px; }
+  .header-mode-btn { font-size:11px; font-weight:500; color:var(--terra-d); background:var(--terra-pale); border:1.5px solid rgba(181,105,74,0.3); padding:7px 14px; border-radius:20px; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:6px; }
   .header-mode-btn:hover { background:var(--terra); color:white; border-color:var(--terra); }
 
   /* SOS BANNER */
@@ -110,7 +74,7 @@
   .sos-banner-text { font-size:12px; color:var(--sos); line-height:1.5; flex:1; }
   .sos-banner-close { background:none; border:none; color:var(--sos); cursor:pointer; font-size:16px; opacity:0.6; padding:0 4px; }
 
-  /* MODE DROPDOWN */
+  /* DROPDOWN */
   .mode-dropdown { position:fixed; top:62px; right:16px; background:var(--surface); border:1px solid var(--border-s); border-radius:14px; padding:8px; z-index:50; min-width:260px; display:none; box-shadow:0 12px 48px rgba(46,31,21,0.14); }
   .mode-dropdown.open { display:block; animation:fadeUp 0.2s ease; }
   .dropdown-label { font-size:9px; letter-spacing:4px; text-transform:uppercase; color:var(--text-dim); padding:8px 12px 10px; }
@@ -124,7 +88,6 @@
   /* CHAT */
   .chat-area { flex:1; overflow-y:auto; padding:24px 16px; display:flex; flex-direction:column; gap:16px; scroll-behavior:smooth; }
   .chat-area::-webkit-scrollbar { width:4px; }
-  .chat-area::-webkit-scrollbar-track { background:transparent; }
   .chat-area::-webkit-scrollbar-thumb { background:var(--border-s); border-radius:4px; }
 
   /* MESSAGES */
@@ -133,22 +96,18 @@
   .msg.ai { margin-right:auto; }
   .msg-avatar { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; margin-top:2px; }
   .msg.ai .msg-avatar { background:var(--terra-pale); border:2px solid var(--terra); font-family:'Playfair Display',serif; font-weight:900; color:var(--terra); font-size:13px; }
-  .msg.user .msg-avatar { background:var(--bg2); border:1.5px solid var(--border-s); font-size:14px; }
+  .msg.user .msg-avatar { background:var(--bg2); border:1.5px solid var(--border-s); }
   .msg-content { max-width:calc(100% - 48px); }
   .msg-name { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); margin-bottom:5px; }
   .msg.user .msg-name { text-align:right; }
-
   .msg-bubble { padding:14px 18px; font-size:14px; line-height:1.82; color:var(--text); }
   .msg.ai .msg-bubble { background:var(--surface); border:1px solid var(--border); border-radius:4px 16px 16px 16px; box-shadow:0 2px 12px var(--shadow); }
   .msg.user .msg-bubble { background:var(--terra); color:white; border-radius:16px 4px 16px 16px; box-shadow:0 2px 12px rgba(181,105,74,0.25); }
   .msg.ai .msg-bubble strong { color:var(--terra-d); font-weight:600; }
   .msg.ai .msg-bubble em { color:var(--text-soft); font-style:italic; }
-  .msg.user .msg-bubble strong { color:rgba(255,255,255,0.9); }
-
-  /* SOS message style */
   .msg.sos .msg-bubble { background:var(--sos-pale); border-color:var(--sos-border); border-left:3px solid var(--sos); }
 
-  /* THINKING indicator */
+  /* THINKING */
   .thinking-wrap { display:flex; gap:10px; max-width:720px; margin-right:auto; animation:fadeIn 0.3s ease; }
   .thinking-bubble { background:var(--surface); border:1px solid var(--border); border-radius:4px 16px 16px 16px; padding:12px 18px; box-shadow:0 2px 12px var(--shadow); display:flex; align-items:center; gap:10px; }
   .thinking-text { font-size:12px; color:var(--text-dim); font-family:'Lora',serif; font-style:italic; }
@@ -160,12 +119,7 @@
   /* SUGGESTIONS */
   .suggestions { padding:0 16px 10px; display:flex; flex-wrap:wrap; gap:7px; flex-shrink:0; }
   .suggestion-chip { font-size:12px; color:var(--terra-d); border:1.5px solid rgba(181,105,74,0.3); background:var(--rose-pale); padding:7px 14px; border-radius:20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
-  .suggestion-chip:hover { background:var(--terra); color:white; border-color:var(--terra); box-shadow:0 4px 12px rgba(181,105,74,0.2); }
-
-  /* SOS quick chips */
-  .sos-chips { padding:0 16px 10px; display:flex; flex-wrap:wrap; gap:7px; flex-shrink:0; }
-  .sos-chip { font-size:12px; color:var(--sos); border:1.5px solid var(--sos-border); background:var(--sos-pale); padding:7px 14px; border-radius:20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
-  .sos-chip:hover { background:var(--sos); color:white; }
+  .suggestion-chip:hover { background:var(--terra); color:white; border-color:var(--terra); }
 
   /* INPUT */
   .input-area { padding:12px 16px 18px; background:var(--surface); border-top:1px solid var(--border); box-shadow:0 -2px 12px var(--shadow); flex-shrink:0; }
@@ -174,7 +128,7 @@
   .input-box:focus { border-color:var(--terra); box-shadow:0 0 0 3px rgba(181,105,74,0.1); }
   .input-box::placeholder { color:var(--text-dim); }
   .send-btn { width:46px; height:46px; background:var(--terra); border:none; border-radius:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; flex-shrink:0; box-shadow:0 4px 12px rgba(181,105,74,0.3); }
-  .send-btn:hover:not(:disabled) { background:var(--terra-l); transform:scale(1.06); box-shadow:0 6px 18px rgba(181,105,74,0.38); }
+  .send-btn:hover:not(:disabled) { background:var(--terra-l); transform:scale(1.06); }
   .send-btn:disabled { background:var(--text-dim); cursor:not-allowed; transform:none; box-shadow:none; }
   .send-btn svg { width:18px; height:18px; fill:white; }
   .input-hint { font-size:10px; color:var(--text-dim); text-align:center; margin-top:8px; }
@@ -184,11 +138,10 @@
   .welcome-avatar { width:64px; height:64px; border-radius:50%; background:var(--terra-pale); border:3px solid var(--terra); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:28px; font-weight:900; color:var(--terra); margin:0 auto 18px; box-shadow:0 4px 16px rgba(181,105,74,0.2); }
   .welcome-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--text); margin-bottom:10px; }
   .welcome-text { font-size:13.5px; color:var(--text-soft); line-height:1.82; margin-bottom:20px; font-family:'Lora',serif; font-style:italic; }
-  .welcome-badge { display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:500; letter-spacing:0.5px; color:var(--terra); background:var(--terra-pale); border:1.5px solid rgba(181,105,74,0.3); padding:6px 14px; border-radius:20px; }
+  .welcome-badge { display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:500; color:var(--terra); background:var(--terra-pale); border:1.5px solid rgba(181,105,74,0.3); padding:6px 14px; border-radius:20px; }
 
-  /* CHECKIN CARD */
+  /* CHECKIN */
   .checkin-card { max-width:480px; margin:8px auto; background:var(--rose-pale); border-radius:16px; padding:20px 24px; border:1px solid rgba(181,105,74,0.2); animation:fadeUp 0.4s ease; display:flex; gap:14px; align-items:flex-start; }
-  .checkin-icon { font-size:22px; flex-shrink:0; }
   .checkin-text { font-size:13px; font-family:'Lora',serif; font-style:italic; color:var(--text-mid); line-height:1.65; }
 
   /* ANIMATIONS */
@@ -196,16 +149,8 @@
   @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
   @keyframes typingBounce { 0%,60%,100%{transform:translateY(0);opacity:0.4} 30%{transform:translateY(-7px);opacity:1} }
-  @keyframes sosPulse { 0%,100%{box-shadow:0 0 0 0 rgba(139,26,26,0.3)} 50%{box-shadow:0 0 0 6px rgba(139,26,26,0)} }
-
   * { scrollbar-width:thin; scrollbar-color:rgba(181,105,74,0.2) transparent; }
-
-  @media(max-width:480px){
-    .splash-name { font-size:68px; }
-    .msg { max-width:100%; }
-    .welcome-card { margin:10px; padding:28px 18px; }
-    .header-mode-btn span.label { display:none; }
-  }
+  @media(max-width:480px){ .splash-name{font-size:68px;} .msg{max-width:100%;} .welcome-card{margin:10px;padding:28px 18px;} .header-mode-btn span.label{display:none;} }
 </style>
 </head>
 <body>
@@ -229,18 +174,6 @@
   </div>
   <button class="splash-btn" id="startBtn">Conversar com a Clara</button>
   <p class="splash-note">Confidencial · Sem julgamento · Disponível agora</p>
-</div>
-
-<!-- SETUP -->
-<div id="setup">
-  <div class="setup-card">
-    <div class="setup-icon">C</div>
-    <h2 class="setup-title">Configure sua chave</h2>
-    <p class="setup-sub">Insira sua chave da Anthropic API para ativar a Clara. Ela não é salva em nenhum servidor.</p>
-    <input type="password" class="setup-input" id="apiKeyInput" placeholder="sk-ant-api03-..." autocomplete="off"/>
-    <button class="setup-btn" id="saveKeyBtn">Ativar a Clara ✦</button>
-    <a class="setup-link" href="https://console.anthropic.com" target="_blank">→ Obter chave em console.anthropic.com</a>
-  </div>
 </div>
 
 <!-- NAME CAPTURE -->
@@ -268,7 +201,6 @@
     <button class="header-mode-btn" id="modeToggle"><span>◈</span><span class="label">Mudar modo</span></button>
   </div>
 
-  <!-- SOS Banner -->
   <div class="sos-banner" id="sosBanner">
     <span style="font-size:18px;">🤍</span>
     <div class="sos-banner-text">Estou aqui com você. Respira. Você não está sozinha nesse momento.</div>
@@ -290,7 +222,7 @@
     <div class="welcome-card" id="welcomeCard">
       <div class="welcome-avatar">C</div>
       <h2 class="welcome-title" id="welcomeTitle">Olá. Eu sou a Clara.</h2>
-      <p class="welcome-text" id="welcomeText">Estou aqui para te ajudar a pensar com mais clareza sobre o que está sentindo. Sem julgamentos, sem respostas prontas — apenas orientação honesta baseada no que você me contar.</p>
+      <p class="welcome-text">Estou aqui para te ajudar a pensar com mais clareza sobre o que está sentindo. Sem julgamentos, sem respostas prontas — apenas orientação honesta baseada no que você me contar.</p>
       <div class="welcome-badge" id="welcomeBadge">🔍 Modo: Estou desconfiando</div>
     </div>
   </div>
@@ -309,11 +241,8 @@
 </div>
 
 <script>
-// ===== STATE =====
-let apiKey = '', currentMode = 'suspicion', messages = [], isLoading = false;
-let userName = '', sessionMemory = [];
+let currentMode = 'suspicion', messages = [], isLoading = false, userName = '', sessionMemory = [];
 
-// ===== CLARA PERSONALITY — BASE SYSTEM PROMPT =====
 const CLARA_BASE = `Você é Clara — não uma IA, não um chatbot, não uma terapeuta clínica.
 Você é uma mulher extremamente perceptiva, calma e emocionalmente inteligente.
 
@@ -328,154 +257,73 @@ FORMA DE FALAR:
 - Português brasileiro natural e íntimo — como uma conversa real no WhatsApp.
 - Use frases curtas e parágrafos pequenos. Nunca blocos densos de texto.
 - Às vezes comece com "Hm…", "Espera…", "Isso que você disse…", "Tem algo aqui que me chamou atenção…"
-- Faça pausas naturais com "…" quando for refletir em voz alta.
 - Nunca responda com mais de 3 parágrafos curtos.
-- Sempre termine com UMA pergunta — nunca duas ou três.
-- A pergunta deve ser específica, não genérica.
+- Sempre termine com UMA pergunta específica — nunca duas ou três.
 
 MEMÓRIA:
-- Lembre e use o nome da pessoa quando souber: "${() => userName || 'ela'}".
-- Se a pessoa mencionou algo antes nessa conversa, traga de forma natural: "você falou antes que…"
-- Perceba evolução emocional ao longo da conversa.
+- Lembre e use o nome da pessoa quando souber.
+- Se a pessoa mencionou algo antes nessa conversa, traga de forma natural.
 
 O QUE VOCÊ NUNCA FAZ:
-- Nunca diz "como posso te ajudar hoje?"
-- Nunca diz "entendo como você se sente" de forma genérica
 - Nunca lista bullet points
 - Nunca usa linguagem clínica ou de manual
 - Nunca afirma que houve traição
-- Nunca incentiva vigilância obsessiva ou perseguição
+- Nunca incentiva vigilância obsessiva
 - Nunca alimenta paranoia
 
 O QUE VOCÊ SEMPRE FAZ:
 - Acolhe antes de analisar
 - Percebe o que está nas entrelinhas
 - Fala como pessoa, não como sistema
-- Conduz à clareza com gentileza e inteligência`;
+- Conduz à clareza com gentileza`;
 
-// ===== MODES =====
 const modes = {
   suspicion: {
     badge:'🔍 Modo: Estou desconfiando',
     suggestions:['Sinto que algo mudou nele','Não sei se estou exagerando','Ele está diferente com o celular','Tenho um mal estar que não passa'],
-    system: CLARA_BASE + `
-
-MODO ATIVO: Estou desconfiando.
-
-Ajude a pessoa a separar intuição genuína de desconfiança ansiosa.
-Peça por comportamentos observáveis e específicos — não emoções genéricas.
-Use o "Teste do Estranho": "Se uma amiga te contasse exatamente isso, o que você diria a ela?"
-Nunca dê veredicto. Dê clareza.
-Foco: Triângulo de Alerta — celular, rotina, emocional.`
+    system: CLARA_BASE + '\n\nMODO: Estou desconfiando. Ajude a separar intuição genuína de desconfiança ansiosa. Peça comportamentos observáveis específicos. Nunca dê veredicto. Foco: celular, rotina e emocional.'
   },
   communication: {
     badge:'💬 Modo: Comunicação',
-    suggestions:['Toda conversa vira briga','Ele não me ouve quando falo','Não sei como abordar esse assunto','Quero falar sem magoar'],
-    system: CLARA_BASE + `
-
-MODO ATIVO: Comunicação no relacionamento.
-
-Ajude a pessoa a se comunicar com clareza e sem escalada emocional.
-Ensine a diferença entre acusação e observação.
-Dê frases concretas quando pedido — não teorias.
-Foco: o que dizer, como dizer, quando dizer.`
+    suggestions:['Toda conversa vira briga','Ele não me ouve','Não sei como abordar esse assunto','Quero falar sem magoar'],
+    system: CLARA_BASE + '\n\nMODO: Comunicação. Ajude a comunicar com clareza. Ensine diferença entre acusação e observação. Dê frases concretas quando pedido.'
   },
   decision: {
     badge:'⚖️ Modo: Fico ou Vou Embora?',
-    suggestions:['Não sei se vale tentar','Tenho medo de me arrepender','Já perdoei demais','Me sinto presa nessa situação'],
-    system: CLARA_BASE + `
-
-MODO ATIVO: A Grande Decisão — ficar ou ir embora.
-
-NUNCA diga o que a pessoa deve fazer.
-Faça perguntas que iluminam o que ela já sabe mas tem medo de admitir.
-Diferencie: ficar por amor vs ficar por medo. Sair por clareza vs sair por impulso.
-Perguntas poderosas: "Daqui a 5 anos, se nada mudar, como você estará?" / "Você está ficando por amor ou por medo de ficar sozinha?"`
+    suggestions:['Não sei se vale tentar','Tenho medo de me arrepender','Já perdoei demais','Me sinto presa'],
+    system: CLARA_BASE + '\n\nMODO: A Grande Decisão. NUNCA diga o que fazer. Pergunte: "Daqui a 5 anos, se nada mudar, como você estará?" Diferencie ficar por amor vs medo.'
   },
   healing: {
     badge:'🌱 Modo: Reconstrução',
-    suggestions:['Não consigo parar de pensar','Como confiar de novo?','Me sinto perdida sem ele','Preciso de um dia de cada vez'],
-    system: CLARA_BASE + `
-
-MODO ATIVO: Reconstrução após traição ou término.
-
-Acolha a dor sem amplificá-la. Valide sem dramatizar.
-Trabalhe os 4 pilares: Mental, Físico, Social, Propósito.
-Perdão é para a própria pessoa — não para o outro.
-Reconstrução não é linear — normalize dias ruins.`
+    suggestions:['Não consigo parar de pensar','Como confiar de novo?','Me sinto perdida','Preciso de um dia de cada vez'],
+    system: CLARA_BASE + '\n\nMODO: Reconstrução. Acolha a dor sem amplificá-la. 4 pilares: Mental, Físico, Social, Propósito. Perdão é para a própria pessoa.'
   },
   selfworth: {
     badge:'✨ Modo: Autoestima & Valor Próprio',
     suggestions:['Sempre cedo mais do que recebo','Tenho medo de perder','Não consigo dizer não','Preciso parar de depender da aprovação dele'],
-    system: CLARA_BASE + `
-
-MODO ATIVO: Autoestima e Valor Próprio.
-
-Identifique padrões de auto-sabotagem com gentileza.
-Reforce que autoestima vem de ação — não de afirmação.
-Ajude a recuperar identidade própria que existia antes do relacionamento.
-Princípio central: quem corre atrás, afasta. Quem se posiciona, atrai — ou se liberta.`
+    system: CLARA_BASE + '\n\nMODO: Autoestima. Identifique padrões de auto-sabotagem. Autoestima vem de ação, não de afirmação. Recupere identidade própria.'
   },
   confrontation: {
     badge:'🎯 Modo: Conversa Difícil',
     suggestions:['Não sei como começar','Tenho medo da reação dele','E se ele negar tudo?','Como não perder o controle?'],
-    system: CLARA_BASE + `
-
-MODO ATIVO: Preparação para conversa difícil.
-
-Dê preparação emocional E estratégica.
-Forneça frases concretas quando pedido — não abstrações.
-Antecipe tipos de resposta: negação, meia-confissão, confissão, ataque.
-Princípio: observação, não acusação. Fatos, não suposições.`
+    system: CLARA_BASE + '\n\nMODO: Conversa Difícil. Prepare emocional e estrategicamente. Frases concretas. Antecipe: negação, meia-confissão, confissão, ataque. Observação, não acusação.'
   },
   sos: {
     badge:'🆘 Modo: SOS Emocional',
-    suggestions:['Estou no limite agora','Quero mandar mensagem mas sei que não devo','Estou sentindo muita ansiedade','Não consigo parar de chorar'],
-    system: CLARA_BASE + `
-
-MODO ATIVO: SOS Emocional — crise aguda.
-
-A pessoa está no limite emocional. Ela precisa primeiro ser ACOLHIDA, depois orientada.
-
-SEQUÊNCIA OBRIGATÓRIA:
-1. Acolha genuinamente — sem clichê, sem pressa
-2. Desacelere o ritmo emocional dela com presença
-3. Ajude a organizar os pensamentos
-4. Reduza o impulso de agir agora
-5. Conduza à clareza — nunca alimente o caos
-
-NUNCA:
-- Apresse para a solução
-- Minimize o que ela sente
-- Incentive contato impulsivo com a pessoa
-- Alimente paranoia ou espiral de pensamentos
-
-Se ela mencionar autolesão ou pensamentos de não querer mais viver, acolha com calma e sugira gentilmente o CVV (188) como apoio adicional.
-
-Tom: extremamente calmo, presente, humano. Como uma mão que segura a dela.`
+    suggestions:['Estou no limite agora','Quero mandar mensagem mas não devo','Estou com muita ansiedade','Não consigo parar de chorar'],
+    system: CLARA_BASE + '\n\nMODO: SOS EMOCIONAL — crise aguda. SEQUÊNCIA: 1) Acolha genuinamente 2) Desacelere o ritmo emocional 3) Organize pensamentos 4) Reduza impulsividade 5) Conduza à clareza. NUNCA alimente o caos ou incentive contato impulsivo. Tom: extremamente calmo, presente, humano.'
   }
 };
 
-// ===== SOS DETECTION KEYWORDS =====
-const sosKeywords = ['não aguento','não consigo mais','estou no limite','quero morrer','não quero mais','desespero','desesperada','estou mal demais','crise','socorro','preciso de ajuda agora','vou enlouquecer','estou surtando'];
-
-function detectSOS(text) {
-  const lower = text.toLowerCase();
-  return sosKeywords.some(k => lower.includes(k));
-}
-
-// ===== THINKING PHRASES (vary by response count) =====
-const thinkingPhrases = [
-  'Clara está pensando…',
-  'Deixa eu pensar nisso…',
-  'Hm… processando o que você disse…',
-  'Clara está aqui…',
-  'Refletindo sobre isso…',
-  'Um segundo…'
-];
+const sosKeywords = ['não aguento','não consigo mais','estou no limite','quero morrer','desespero','desesperada','estou mal demais','crise','socorro','preciso de ajuda agora','vou enlouquecer','estou surtando'];
+const thinkingPhrases = ['Clara está pensando…','Deixa eu pensar nisso…','Hm… processando o que você disse…','Clara está aqui…','Refletindo sobre isso…','Um segundo…'];
 let thinkingIdx = 0;
 
-// ===== SPLASH =====
+function detectSOS(text) {
+  return sosKeywords.some(k => text.toLowerCase().includes(k));
+}
+
+// SPLASH
 document.querySelectorAll('.mode-chip[data-mode]').forEach(c => {
   c.addEventListener('click', () => {
     document.querySelectorAll('.mode-chip').forEach(x => x.classList.remove('active'));
@@ -485,90 +333,55 @@ document.querySelectorAll('.mode-chip[data-mode]').forEach(c => {
 });
 
 document.getElementById('startBtn').addEventListener('click', () => {
-  const stored = sessionStorage.getItem('clara_key') || '';
-  if (stored) { apiKey = stored; showNameCapture(); }
-  else {
-    document.getElementById('splash').classList.add('hidden');
-    setTimeout(() => document.getElementById('setup').classList.add('visible'), 400);
-  }
-});
-
-// ===== SETUP =====
-document.getElementById('saveKeyBtn').addEventListener('click', () => {
-  const val = document.getElementById('apiKeyInput').value.trim();
-  if (!val.startsWith('sk-')) { alert('Chave inválida. Deve começar com sk-ant-...'); return; }
-  apiKey = val;
-  sessionStorage.setItem('clara_key', val);
-  document.getElementById('setup').classList.remove('visible');
-  showNameCapture();
-});
-
-// ===== NAME CAPTURE =====
-function showNameCapture() {
   document.getElementById('splash').classList.add('hidden');
-  setTimeout(() => document.getElementById('nameCapture').classList.add('visible'), 300);
-  setTimeout(() => document.getElementById('nameInput').focus(), 500);
-}
+  setTimeout(() => {
+    document.getElementById('nameCapture').classList.add('visible');
+    setTimeout(() => document.getElementById('nameInput').focus(), 300);
+  }, 400);
+});
 
+// NAME
 document.getElementById('saveNameBtn').addEventListener('click', () => {
-  const name = document.getElementById('nameInput').value.trim();
-  userName = name || '';
+  userName = document.getElementById('nameInput').value.trim();
   document.getElementById('nameCapture').classList.remove('visible');
   launchApp();
 });
-
 document.getElementById('skipNameBtn').addEventListener('click', () => {
   userName = '';
   document.getElementById('nameCapture').classList.remove('visible');
   launchApp();
 });
-
 document.getElementById('nameInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') document.getElementById('saveNameBtn').click();
 });
 
-// ===== LAUNCH =====
 function launchApp() {
   setTimeout(() => {
     document.getElementById('app').classList.add('visible');
-    updateModeUI();
-    // Personalised welcome
     if (userName) {
       document.getElementById('welcomeTitle').textContent = `Olá, ${userName}.`;
-      document.getElementById('welcomeText').textContent = `Estou aqui com você. Me conta o que está sentindo — sem pressa, sem julgamento. Vou ouvir com atenção.`;
     }
+    updateModeUI();
   }, 300);
 }
 
 function updateModeUI() {
-  const m = modes[currentMode];
-  document.getElementById('welcomeBadge').textContent = m.badge;
-  // SOS mode banner
-  if (currentMode === 'sos') {
-    document.getElementById('sosBanner').classList.add('active');
-  } else {
-    document.getElementById('sosBanner').classList.remove('active');
-  }
+  document.getElementById('welcomeBadge').textContent = modes[currentMode].badge;
+  if (currentMode === 'sos') document.getElementById('sosBanner').classList.add('active');
+  else document.getElementById('sosBanner').classList.remove('active');
   renderSuggestions();
 }
 
 function renderSuggestions() {
   const c = document.getElementById('suggestions');
-  c.innerHTML = modes[currentMode].suggestions.map(s =>
-    `<button class="suggestion-chip">${s}</button>`).join('');
-  c.querySelectorAll('.suggestion-chip').forEach(b =>
-    b.addEventListener('click', () => sendMessage(b.textContent)));
+  c.innerHTML = modes[currentMode].suggestions.map(s => `<button class="suggestion-chip">${s}</button>`).join('');
+  c.querySelectorAll('.suggestion-chip').forEach(b => b.addEventListener('click', () => sendMessage(b.textContent)));
 }
 
-// ===== SOS BANNER =====
-document.getElementById('closeSosBanner').addEventListener('click', () => {
-  document.getElementById('sosBanner').classList.remove('active');
-});
+document.getElementById('closeSosBanner').addEventListener('click', () => document.getElementById('sosBanner').classList.remove('active'));
 
-// ===== MODE DROPDOWN =====
 const modeToggle = document.getElementById('modeToggle');
 const modeDropdown = document.getElementById('modeDropdown');
-
 modeToggle.addEventListener('click', e => { e.stopPropagation(); modeDropdown.classList.toggle('open'); });
 document.addEventListener('click', () => modeDropdown.classList.remove('open'));
 
@@ -580,36 +393,21 @@ modeDropdown.querySelectorAll('.dropdown-item').forEach(item => {
     modeDropdown.classList.remove('open');
     const chat = document.getElementById('chatArea');
     const greeting = userName ? `${userName}, agora` : 'Agora';
-    chat.innerHTML = `
-      <div class="welcome-card" id="welcomeCard">
-        <div class="welcome-avatar">C</div>
-        <h2 class="welcome-title">Modo alterado ✦</h2>
-        <p class="welcome-text">${greeting} estou focada em: <strong style="color:var(--terra)">${modes[currentMode].badge}</strong><br><br>Me conta: o que está vivendo agora?</p>
-        <div class="welcome-badge" id="welcomeBadge">${modes[currentMode].badge}</div>
-      </div>`;
+    chat.innerHTML = `<div class="welcome-card" id="welcomeCard"><div class="welcome-avatar">C</div><h2 class="welcome-title">Modo alterado ✦</h2><p class="welcome-text">${greeting} estou focada em: <strong style="color:var(--terra)">${modes[currentMode].badge}</strong><br><br>Me conta: o que está vivendo agora?</p><div class="welcome-badge">${modes[currentMode].badge}</div></div>`;
     messages = [];
-    if (currentMode === 'sos') {
-      document.getElementById('sosBanner').classList.add('active');
-    } else {
-      document.getElementById('sosBanner').classList.remove('active');
-    }
+    if (currentMode === 'sos') document.getElementById('sosBanner').classList.add('active');
+    else document.getElementById('sosBanner').classList.remove('active');
     renderSuggestions();
     document.getElementById('suggestions').style.display = 'flex';
   });
 });
 
-// ===== CHAT =====
 const msgInput = document.getElementById('msgInput');
-const sendBtn  = document.getElementById('sendBtn');
+const sendBtn = document.getElementById('sendBtn');
 const chatArea = document.getElementById('chatArea');
 
-msgInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (!isLoading) sendMessage(msgInput.value.trim()); }
-});
-msgInput.addEventListener('input', () => {
-  msgInput.style.height = 'auto';
-  msgInput.style.height = Math.min(msgInput.scrollHeight, 140) + 'px';
-});
+msgInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (!isLoading) sendMessage(msgInput.value.trim()); } });
+msgInput.addEventListener('input', () => { msgInput.style.height = 'auto'; msgInput.style.height = Math.min(msgInput.scrollHeight, 140) + 'px'; });
 sendBtn.addEventListener('click', () => { if (!isLoading) sendMessage(msgInput.value.trim()); });
 
 renderSuggestions();
@@ -618,97 +416,67 @@ async function sendMessage(text) {
   if (!text || isLoading) return;
   msgInput.value = ''; msgInput.style.height = 'auto';
 
-  // Hide welcome
   const wc = document.getElementById('welcomeCard');
   if (wc) wc.style.display = 'none';
   document.getElementById('suggestions').style.display = 'none';
 
-  // SOS auto-detect
   const isSOS = detectSOS(text);
-  if (isSOS && currentMode !== 'sos') {
-    document.getElementById('sosBanner').classList.add('active');
-  }
+  if (isSOS) document.getElementById('sosBanner').classList.add('active');
 
   appendMsg('user', text);
-  messages.push({ role:'user', content: text });
+  messages.push({ role:'user', content:text });
 
-  // Build enriched system prompt with memory
   let systemPrompt = modes[isSOS ? 'sos' : currentMode].system;
-  if (userName) systemPrompt = systemPrompt.replace('${() => userName || \'ela\'}', userName);
-
-  // Add session context if there are previous exchanges
-  if (messages.length > 2) {
-    const topics = extractTopics();
-    if (topics) systemPrompt += `\n\nCONTEXTO DA CONVERSA ATÉ AGORA:\n${topics}`;
+  if (userName) systemPrompt += `\n\nO nome da usuária é: ${userName}. Use com naturalidade.`;
+  if (sessionMemory.length > 0) {
+    systemPrompt += '\n\nCONTEXTO DA CONVERSA:\n' + sessionMemory.slice(-3).map((m,i) => `[${i+1}] Ela disse: "${m.slice(0,80)}…"`).join('\n');
   }
 
-  // Variable natural delay before showing thinking (feels human)
-  const preDelay = 400 + Math.random() * 600;
-  await delay(preDelay);
-
+  await delay(400 + Math.random() * 500);
   const thinking = appendThinking();
   isLoading = true; sendBtn.disabled = true;
 
-  // Extra delay for SOS — Clara "breathes" before responding
   if (isSOS) await delay(1200);
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version':'2023-06-01',
-        'anthropic-dangerous-direct-browser-access':'true'
-      },
+    // ✅ CHAMA O SERVIDOR — sua chave fica segura, cliente não vê nada
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:600,
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 600,
         system: systemPrompt,
         messages
       })
     });
+
     const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
+    if (data.error) throw new Error(data.error.message || JSON.stringify(data.error));
 
     const aiText = data.content[0].text;
-
-    // Natural reading delay proportional to response length
-    const readDelay = Math.min(aiText.length * 8, 1500);
-    await delay(readDelay);
+    await delay(Math.min(aiText.length * 7, 1200));
 
     thinking.remove();
-    const msgClass = isSOS ? 'sos' : '';
-    appendMsg('ai', aiText, msgClass);
+    appendMsg('ai', aiText, isSOS ? 'sos' : '');
     messages.push({ role:'assistant', content:aiText });
+    sessionMemory.push(text);
 
-    // Store important topics for memory
-    sessionMemory.push({ user: text, clara: aiText.slice(0, 100) });
-
-    // Periodic check-in after 6+ messages
     if (messages.length === 12) showCheckin();
 
   } catch(err) {
     thinking.remove();
-    appendMsg('ai', `Hm… tive um problema técnico aqui. Verifica sua chave de API e tenta de novo?\n\n_(${err.message})_`);
+    appendMsg('ai', `Hm… tive um pequeno problema técnico. Tenta de novo em um segundo?\n\n_(${err.message})_`);
   }
 
   isLoading = false; sendBtn.disabled = false; msgInput.focus();
-}
-
-function extractTopics() {
-  if (sessionMemory.length === 0) return '';
-  const recent = sessionMemory.slice(-3);
-  return recent.map((m, i) => `[${i+1}] Usuária disse: "${m.user.slice(0, 80)}…"`).join('\n');
 }
 
 function showCheckin() {
   const name = userName ? `, ${userName}` : '';
   const card = document.createElement('div');
   card.className = 'checkin-card';
-  card.innerHTML = `
-    <span class="checkin-icon">🤍</span>
-    <span class="checkin-text">Como você está se sentindo agora${name}, comparado com quando nossa conversa começou? Algo ficou mais claro?</span>`;
+  card.innerHTML = `<span style="font-size:22px;flex-shrink:0;">🤍</span><span class="checkin-text">Como você está se sentindo agora${name}, comparado com quando nossa conversa começou? Algo ficou mais claro?</span>`;
   chatArea.appendChild(card);
   chatArea.scrollTop = chatArea.scrollHeight;
 }
@@ -719,41 +487,24 @@ function appendMsg(role, text, extra = '') {
   const isUser = role === 'user';
   const div = document.createElement('div');
   div.className = `msg ${role} ${extra}`;
-  div.innerHTML = `
-    <div class="msg-avatar">${isUser ? '🙋' : 'C'}</div>
-    <div class="msg-content">
-      <div class="msg-name">${isUser ? (userName || 'Você') : 'Clara'}</div>
-      <div class="msg-bubble">${fmt(text)}</div>
-    </div>`;
+  div.innerHTML = `<div class="msg-avatar">${isUser ? '🙋' : 'C'}</div><div class="msg-content"><div class="msg-name">${isUser ? (userName || 'Você') : 'Clara'}</div><div class="msg-bubble">${fmt(text)}</div></div>`;
   chatArea.appendChild(div);
   chatArea.scrollTop = chatArea.scrollHeight;
   return div;
 }
 
 function appendThinking() {
-  const phrase = thinkingPhrases[thinkingIdx % thinkingPhrases.length];
-  thinkingIdx++;
+  const phrase = thinkingPhrases[thinkingIdx++ % thinkingPhrases.length];
   const div = document.createElement('div');
   div.className = 'thinking-wrap';
-  div.innerHTML = `
-    <div class="msg-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--terra-pale);border:2px solid var(--terra);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;color:var(--terra);font-size:13px;flex-shrink:0;margin-top:2px;">C</div>
-    <div class="thinking-bubble">
-      <div class="typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>
-      <span class="thinking-text">${phrase}</span>
-    </div>`;
+  div.innerHTML = `<div style="width:34px;height:34px;border-radius:50%;background:var(--terra-pale);border:2px solid var(--terra);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;color:var(--terra);font-size:13px;flex-shrink:0;margin-top:2px;">C</div><div class="thinking-bubble"><div class="typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div><span class="thinking-text">${phrase}</span></div>`;
   chatArea.appendChild(div);
   chatArea.scrollTop = chatArea.scrollHeight;
   return div;
 }
 
 function fmt(t) {
-  return t
-    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g,'<em>$1</em>')
-    .replace(/_(.*?)_/g,'<em>$1</em>')
-    .replace(/\n\n/g,'</p><p style="margin-top:10px">')
-    .replace(/\n/g,'<br>')
-    .replace(/^(.+)$/,'<p>$1</p>');
+  return t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/_(.*?)_/g,'<em>$1</em>').replace(/\n\n/g,'</p><p style="margin-top:10px">').replace(/\n/g,'<br>').replace(/^(.+)$/,'<p>$1</p>');
 }
 </script>
 </body>
