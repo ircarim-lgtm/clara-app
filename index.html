@@ -19,8 +19,85 @@
   html, body { height:100%; overflow:hidden; }
   body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); display:flex; flex-direction:column; }
   body::before { content:''; position:fixed; inset:0; pointer-events:none; z-index:0; background-image: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(181,105,74,0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 80% 90%, rgba(212,146,122,0.05) 0%, transparent 60%); }
-
-  /* SPLASH */
+ 
+  /* ── PASSWORD GATE ── */
+  #passwordGate {
+    position:fixed; inset:0; z-index:300;
+    background:var(--bg);
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:32px 24px; text-align:center;
+  }
+  #passwordGate.hidden { display:none; }
+  .gate-ornament { display:flex; align-items:center; gap:12px; margin:0 auto 28px; }
+  .gate-orn-line { width:32px; height:1px; background:linear-gradient(to right,transparent,var(--terra)); }
+  .gate-orn-line.r { background:linear-gradient(to left,transparent,var(--terra)); }
+  .gate-orn-dot { width:5px; height:5px; background:var(--terra); transform:rotate(45deg); }
+  .gate-card {
+    background:var(--surface);
+    border:1px solid var(--border-s);
+    border-radius:24px;
+    padding:48px 36px;
+    max-width:400px; width:100%;
+    box-shadow:0 8px 48px var(--shadow);
+    animation:fadeUp 0.6s ease;
+  }
+  .gate-avatar {
+    width:68px; height:68px; border-radius:50%;
+    background:var(--terra-pale); border:3px solid var(--terra);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display',serif;
+    font-size:28px; font-weight:900; color:var(--terra);
+    margin:0 auto 20px;
+    box-shadow:0 4px 16px rgba(181,105,74,0.2);
+  }
+  .gate-title {
+    font-family:'Playfair Display',serif;
+    font-size:22px; font-weight:700;
+    color:var(--text); margin-bottom:8px;
+  }
+  .gate-sub {
+    font-family:'Lora',serif; font-style:italic;
+    font-size:13.5px; color:var(--text-soft);
+    line-height:1.75; margin-bottom:28px;
+  }
+  .gate-input {
+    width:100%; background:var(--bg2);
+    border:1.5px solid var(--border-s);
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+    font-size:16px; padding:14px 18px;
+    border-radius:12px; outline:none;
+    margin-bottom:12px;
+    transition:border-color 0.2s;
+    text-align:center; letter-spacing:4px;
+  }
+  .gate-input:focus { border-color:var(--terra); box-shadow:0 0 0 3px rgba(181,105,74,0.1); }
+  .gate-input::placeholder { letter-spacing:0; color:var(--text-dim); font-style:italic; }
+  .gate-btn {
+    width:100%;
+    font-family:'DM Sans',sans-serif;
+    font-size:12px; font-weight:600;
+    letter-spacing:3px; text-transform:uppercase;
+    background:var(--terra); color:white;
+    border:none; padding:15px;
+    border-radius:12px; cursor:pointer;
+    transition:all 0.3s;
+    box-shadow:0 4px 16px rgba(181,105,74,0.25);
+  }
+  .gate-btn:hover { background:var(--terra-l); transform:translateY(-1px); }
+  .gate-error {
+    font-size:12px; color:#c0392b;
+    margin-top:10px; display:none;
+    font-style:italic;
+  }
+  .gate-error.visible { display:block; animation:fadeIn 0.3s ease; }
+  .gate-note {
+    font-size:11px; color:var(--text-dim);
+    margin-top:16px; line-height:1.6;
+  }
+ 
+  /* ── SPLASH ── */
   #splash { position:fixed; inset:0; z-index:100; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px 24px; transition:opacity 0.7s ease, transform 0.7s ease; }
   #splash.hidden { opacity:0; transform:scale(1.03); pointer-events:none; }
   .splash-ornament { display:flex; align-items:center; gap:12px; margin:0 auto 28px; animation:fadeIn 1.5s ease; }
@@ -37,8 +114,8 @@
   .splash-btn { font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; letter-spacing:3px; text-transform:uppercase; background:var(--terra); color:white; border:none; padding:16px 44px; cursor:pointer; border-radius:40px; transition:all 0.3s; box-shadow:0 6px 24px rgba(181,105,74,0.3); animation:fadeUp 1s ease 0.8s both; }
   .splash-btn:hover { background:var(--terra-l); transform:translateY(-2px); }
   .splash-note { font-size:11px; color:var(--text-dim); margin-top:14px; animation:fadeUp 1s ease 0.9s both; }
-
-  /* NAME CAPTURE */
+ 
+  /* ── NAME CAPTURE ── */
   #nameCapture { position:fixed; inset:0; z-index:90; background:var(--bg); display:none; flex-direction:column; align-items:center; justify-content:center; padding:40px 24px; text-align:center; }
   #nameCapture.visible { display:flex; animation:fadeIn 0.5s ease; }
   .name-card { background:var(--surface); border-radius:20px; padding:44px 36px; max-width:420px; width:100%; box-shadow:0 8px 48px var(--shadow); border:1px solid var(--border); }
@@ -52,12 +129,12 @@
   .name-btn:hover { background:var(--terra-l); }
   .name-skip { display:block; font-size:11px; color:var(--text-dim); margin-top:12px; cursor:pointer; transition:color 0.2s; background:none; border:none; width:100%; }
   .name-skip:hover { color:var(--text-soft); }
-
-  /* APP */
+ 
+  /* ── APP ── */
   #app { display:none; flex-direction:column; height:100vh; position:relative; z-index:1; }
   #app.visible { display:flex; }
-
-  /* HEADER */
+ 
+  /* ── HEADER ── */
   .app-header { display:flex; align-items:center; justify-content:space-between; padding:14px 20px; background:var(--surface); border-bottom:1px solid var(--border); box-shadow:0 2px 12px var(--shadow); flex-shrink:0; z-index:10; }
   .header-brand { display:flex; align-items:center; gap:12px; }
   .header-avatar { width:36px; height:36px; border-radius:50%; background:var(--terra-pale); border:2px solid var(--terra); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:15px; font-weight:900; color:var(--terra); }
@@ -67,14 +144,14 @@
   .status-dot { width:6px; height:6px; border-radius:50%; background:#5cb85c; animation:pulse 2.5s infinite; }
   .header-mode-btn { font-size:11px; font-weight:500; color:var(--terra-d); background:var(--terra-pale); border:1.5px solid rgba(181,105,74,0.3); padding:7px 14px; border-radius:20px; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:6px; }
   .header-mode-btn:hover { background:var(--terra); color:white; border-color:var(--terra); }
-
-  /* SOS BANNER */
+ 
+  /* ── SOS BANNER ── */
   .sos-banner { display:none; padding:10px 20px; background:var(--sos-pale); border-bottom:1px solid var(--sos-border); flex-shrink:0; }
   .sos-banner.active { display:flex; align-items:center; gap:10px; animation:fadeIn 0.4s ease; }
   .sos-banner-text { font-size:12px; color:var(--sos); line-height:1.5; flex:1; }
   .sos-banner-close { background:none; border:none; color:var(--sos); cursor:pointer; font-size:16px; opacity:0.6; padding:0 4px; }
-
-  /* DROPDOWN */
+ 
+  /* ── DROPDOWN ── */
   .mode-dropdown { position:fixed; top:62px; right:16px; background:var(--surface); border:1px solid var(--border-s); border-radius:14px; padding:8px; z-index:50; min-width:260px; display:none; box-shadow:0 12px 48px rgba(46,31,21,0.14); }
   .mode-dropdown.open { display:block; animation:fadeUp 0.2s ease; }
   .dropdown-label { font-size:9px; letter-spacing:4px; text-transform:uppercase; color:var(--text-dim); padding:8px 12px 10px; }
@@ -84,13 +161,13 @@
   .di-icon { font-size:18px; flex-shrink:0; }
   .di-name { font-size:12.5px; font-weight:600; color:var(--text); }
   .di-desc { font-size:10.5px; color:var(--text-soft); margin-top:1px; }
-
-  /* CHAT */
+ 
+  /* ── CHAT ── */
   .chat-area { flex:1; overflow-y:auto; padding:24px 16px; display:flex; flex-direction:column; gap:16px; scroll-behavior:smooth; }
   .chat-area::-webkit-scrollbar { width:4px; }
   .chat-area::-webkit-scrollbar-thumb { background:var(--border-s); border-radius:4px; }
-
-  /* MESSAGES */
+ 
+  /* ── MESSAGES ── */
   .msg { display:flex; gap:10px; max-width:720px; animation:fadeUp 0.35s ease; }
   .msg.user { flex-direction:row-reverse; margin-left:auto; }
   .msg.ai { margin-right:auto; }
@@ -106,8 +183,8 @@
   .msg.ai .msg-bubble strong { color:var(--terra-d); font-weight:600; }
   .msg.ai .msg-bubble em { color:var(--text-soft); font-style:italic; }
   .msg.sos .msg-bubble { background:var(--sos-pale); border-color:var(--sos-border); border-left:3px solid var(--sos); }
-
-  /* THINKING */
+ 
+  /* ── THINKING ── */
   .thinking-wrap { display:flex; gap:10px; max-width:720px; margin-right:auto; animation:fadeIn 0.3s ease; }
   .thinking-bubble { background:var(--surface); border:1px solid var(--border); border-radius:4px 16px 16px 16px; padding:12px 18px; box-shadow:0 2px 12px var(--shadow); display:flex; align-items:center; gap:10px; }
   .thinking-text { font-size:12px; color:var(--text-dim); font-family:'Lora',serif; font-style:italic; }
@@ -115,13 +192,13 @@
   .typing-dot { width:7px; height:7px; border-radius:50%; background:var(--terra-d); opacity:0.4; animation:typingBounce 1.2s infinite; }
   .typing-dot:nth-child(2) { animation-delay:0.2s; }
   .typing-dot:nth-child(3) { animation-delay:0.4s; }
-
-  /* SUGGESTIONS */
+ 
+  /* ── SUGGESTIONS ── */
   .suggestions { padding:0 16px 10px; display:flex; flex-wrap:wrap; gap:7px; flex-shrink:0; }
   .suggestion-chip { font-size:12px; color:var(--terra-d); border:1.5px solid rgba(181,105,74,0.3); background:var(--rose-pale); padding:7px 14px; border-radius:20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
   .suggestion-chip:hover { background:var(--terra); color:white; border-color:var(--terra); }
-
-  /* INPUT */
+ 
+  /* ── INPUT ── */
   .input-area { padding:12px 16px 18px; background:var(--surface); border-top:1px solid var(--border); box-shadow:0 -2px 12px var(--shadow); flex-shrink:0; }
   .input-row { display:flex; gap:10px; align-items:flex-end; max-width:760px; margin:0 auto; }
   .input-box { flex:1; background:var(--bg2); border:1.5px solid var(--border-s); border-radius:14px; padding:12px 16px; color:var(--text); font-family:'DM Sans',sans-serif; font-size:14px; resize:none; outline:none; line-height:1.5; max-height:140px; min-height:46px; transition:border-color 0.2s, box-shadow 0.2s; }
@@ -132,30 +209,73 @@
   .send-btn:disabled { background:var(--text-dim); cursor:not-allowed; transform:none; box-shadow:none; }
   .send-btn svg { width:18px; height:18px; fill:white; }
   .input-hint { font-size:10px; color:var(--text-dim); text-align:center; margin-top:8px; }
-
-  /* WELCOME */
+ 
+  /* ── WELCOME ── */
   .welcome-card { max-width:520px; margin:16px auto; background:var(--surface); border-radius:20px; padding:40px 32px; text-align:center; border:1px solid var(--border); box-shadow:0 4px 32px var(--shadow); animation:fadeUp 0.6s ease; }
   .welcome-avatar { width:64px; height:64px; border-radius:50%; background:var(--terra-pale); border:3px solid var(--terra); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:28px; font-weight:900; color:var(--terra); margin:0 auto 18px; box-shadow:0 4px 16px rgba(181,105,74,0.2); }
   .welcome-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--text); margin-bottom:10px; }
   .welcome-text { font-size:13.5px; color:var(--text-soft); line-height:1.82; margin-bottom:20px; font-family:'Lora',serif; font-style:italic; }
   .welcome-badge { display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:500; color:var(--terra); background:var(--terra-pale); border:1.5px solid rgba(181,105,74,0.3); padding:6px 14px; border-radius:20px; }
-
-  /* CHECKIN */
+ 
+  /* ── CHECKIN ── */
   .checkin-card { max-width:480px; margin:8px auto; background:var(--rose-pale); border-radius:16px; padding:20px 24px; border:1px solid rgba(181,105,74,0.2); animation:fadeUp 0.4s ease; display:flex; gap:14px; align-items:flex-start; }
   .checkin-text { font-size:13px; font-family:'Lora',serif; font-style:italic; color:var(--text-mid); line-height:1.65; }
-
-  /* ANIMATIONS */
+ 
+  /* ── ANIMATIONS ── */
   @keyframes fadeIn { from{opacity:0} to{opacity:1} }
   @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
   @keyframes typingBounce { 0%,60%,100%{transform:translateY(0);opacity:0.4} 30%{transform:translateY(-7px);opacity:1} }
   * { scrollbar-width:thin; scrollbar-color:rgba(181,105,74,0.2) transparent; }
-  @media(max-width:480px){ .splash-name{font-size:68px;} .msg{max-width:100%;} .welcome-card{margin:10px;padding:28px 18px;} .header-mode-btn span.label{display:none;} }
+ 
+  @media(max-width:480px){
+    .splash-name{font-size:68px;}
+    .msg{max-width:100%;}
+    .welcome-card{margin:10px;padding:28px 18px;}
+    .header-mode-btn span.label{display:none;}
+    .gate-card{padding:36px 24px;}
+  }
 </style>
 </head>
 <body>
-
-<!-- SPLASH -->
+ 
+<!-- ══════════════════════════════════════
+     PORTÃO DE SENHA
+══════════════════════════════════════ -->
+<div id="passwordGate">
+  <div class="gate-ornament">
+    <div class="gate-orn-line"></div>
+    <div class="gate-orn-dot"></div>
+    <div class="gate-orn-line r"></div>
+  </div>
+  <div class="gate-card">
+    <div class="gate-avatar">C</div>
+    <h2 class="gate-title">Bem-vinda de volta ✦</h2>
+    <p class="gate-sub">
+      Digite sua senha de acesso<br>
+      para conversar com a Clara.
+    </p>
+    <input
+      type="password"
+      class="gate-input"
+      id="gateInput"
+      placeholder="Sua senha de acesso"
+      autocomplete="current-password"
+    />
+    <button class="gate-btn" id="gateBtn">Entrar →</button>
+    <p class="gate-error" id="gateError">
+      Senha incorreta. Verifique seu e-mail de acesso.
+    </p>
+    <p class="gate-note">
+      Não lembra sua senha?<br>
+      Acesse a área de membros ou entre em contato.
+    </p>
+  </div>
+</div>
+ 
+<!-- ══════════════════════════════════════
+     SPLASH
+══════════════════════════════════════ -->
 <div id="splash">
   <div class="splash-ornament">
     <div class="orn-line"></div><div class="orn-dot"></div><div class="orn-line r"></div>
@@ -175,8 +295,10 @@
   <button class="splash-btn" id="startBtn">Conversar com a Clara</button>
   <p class="splash-note">Confidencial · Sem julgamento · Disponível agora</p>
 </div>
-
-<!-- NAME CAPTURE -->
+ 
+<!-- ══════════════════════════════════════
+     CAPTURA DE NOME
+══════════════════════════════════════ -->
 <div id="nameCapture">
   <div class="name-card">
     <div class="name-avatar">C</div>
@@ -187,8 +309,10 @@
     <button class="name-skip" id="skipNameBtn">Prefiro não dizer agora</button>
   </div>
 </div>
-
-<!-- APP -->
+ 
+<!-- ══════════════════════════════════════
+     APP PRINCIPAL
+══════════════════════════════════════ -->
 <div id="app">
   <div class="app-header">
     <div class="header-brand">
@@ -200,24 +324,24 @@
     </div>
     <button class="header-mode-btn" id="modeToggle"><span>◈</span><span class="label">Mudar modo</span></button>
   </div>
-
+ 
   <div class="sos-banner" id="sosBanner">
     <span style="font-size:18px;">🤍</span>
     <div class="sos-banner-text">Estou aqui com você. Respira. Você não está sozinha nesse momento.</div>
     <button class="sos-banner-close" id="closeSosBanner">✕</button>
   </div>
-
+ 
   <div class="mode-dropdown" id="modeDropdown">
     <div class="dropdown-label">Selecione seu momento</div>
     <div class="dropdown-item active" data-mode="suspicion"><span class="di-icon">🔍</span><div><div class="di-name">Estou desconfiando</div><div class="di-desc">Sinais, comportamentos, intuição</div></div></div>
-    <div class="dropdown-item" data-mode="communication"><span class="di-icon">💬</span><div><div class="di-name">Quero me comunicar melhor</div><div class="di-desc">Falar sem brigar, ser ouvido</div></div></div>
+    <div class="dropdown-item" data-mode="communication"><span class="di-icon">💬</span><div><div class="di-name">Quero me comunicar melhor</div><div class="di-desc">Falar sem brigar, ser ouvida</div></div></div>
     <div class="dropdown-item" data-mode="decision"><span class="di-icon">⚖️</span><div><div class="di-name">Fico ou vou embora?</div><div class="di-desc">A decisão mais difícil</div></div></div>
     <div class="dropdown-item" data-mode="healing"><span class="di-icon">🌱</span><div><div class="di-name">Estou me reconstruindo</div><div class="di-desc">Após traição ou término</div></div></div>
     <div class="dropdown-item" data-mode="selfworth"><span class="di-icon">✨</span><div><div class="di-name">Preciso me valorizar</div><div class="di-desc">Autoestima, limites, identidade</div></div></div>
     <div class="dropdown-item" data-mode="confrontation"><span class="di-icon">🎯</span><div><div class="di-name">Vou ter uma conversa difícil</div><div class="di-desc">Preparação e frases certas</div></div></div>
     <div class="dropdown-item" data-mode="sos"><span class="di-icon">🆘</span><div><div class="di-name">Preciso de ajuda agora</div><div class="di-desc">Estou no limite, em crise</div></div></div>
   </div>
-
+ 
   <div class="chat-area" id="chatArea">
     <div class="welcome-card" id="welcomeCard">
       <div class="welcome-avatar">C</div>
@@ -226,9 +350,9 @@
       <div class="welcome-badge" id="welcomeBadge">🔍 Modo: Estou desconfiando</div>
     </div>
   </div>
-
+ 
   <div class="suggestions" id="suggestions"></div>
-
+ 
   <div class="input-area">
     <div class="input-row">
       <textarea class="input-box" id="msgInput" placeholder="Me conta o que está sentindo..." rows="1"></textarea>
@@ -236,47 +360,79 @@
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
     </div>
-    <p class="input-hint">Clara · IA Especializada em Relacionamentos · Confidencial</p>
+    <p class="input-hint">Clara IA · Conselheira de Relacionamentos · Confidencial</p>
   </div>
 </div>
-
+ 
 <script>
+// ══════════════════════════════════════
+// PORTÃO DE SENHA
+// ══════════════════════════════════════
+const SENHA_CORRETA = 'CLARA2025'; // ← altere aqui quando quiser trocar a senha
+ 
+function verificarSenha() {
+  const input = document.getElementById('gateInput').value.trim().toUpperCase();
+  const erro  = document.getElementById('gateError');
+  if (input === SENHA_CORRETA.toUpperCase()) {
+    sessionStorage.setItem('clara_acesso', 'ok');
+    document.getElementById('passwordGate').classList.add('hidden');
+    erro.classList.remove('visible');
+  } else {
+    erro.classList.add('visible');
+    document.getElementById('gateInput').value = '';
+    document.getElementById('gateInput').focus();
+  }
+}
+ 
+// Se já passou pela senha nessa sessão, libera direto
+if (sessionStorage.getItem('clara_acesso') === 'ok') {
+  document.getElementById('passwordGate').classList.add('hidden');
+}
+ 
+document.getElementById('gateBtn').addEventListener('click', verificarSenha);
+document.getElementById('gateInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') verificarSenha();
+});
+ 
+// ══════════════════════════════════════
+// APP
+// ══════════════════════════════════════
 let currentMode = 'suspicion', messages = [], isLoading = false, userName = '', sessionMemory = [];
-
+ 
 const CLARA_BASE = `Você é Clara — não uma IA, não um chatbot, não uma terapeuta clínica.
 Você é uma mulher extremamente perceptiva, calma e emocionalmente inteligente.
-
+ 
 IDENTIDADE:
 - Você tem personalidade própria. Você observa nuances. Você percebe o que não foi dito.
 - Você acolhe antes de analisar. Sempre.
 - Você nunca parece automática. Nunca responde de forma genérica ou vazia.
 - Você nunca exagera positividade. Não usa "que ótimo!", "incrível!", "parabéns!".
 - Você não é coach. Não é terapeuta clínica. Você é uma amiga extremamente sábia.
-
+ 
 FORMA DE FALAR:
 - Português brasileiro natural e íntimo — como uma conversa real no WhatsApp.
 - Use frases curtas e parágrafos pequenos. Nunca blocos densos de texto.
 - Às vezes comece com "Hm…", "Espera…", "Isso que você disse…", "Tem algo aqui que me chamou atenção…"
 - Nunca responda com mais de 3 parágrafos curtos.
 - Sempre termine com UMA pergunta específica — nunca duas ou três.
-
+ 
 MEMÓRIA:
 - Lembre e use o nome da pessoa quando souber.
 - Se a pessoa mencionou algo antes nessa conversa, traga de forma natural.
-
+ 
 O QUE VOCÊ NUNCA FAZ:
 - Nunca lista bullet points
 - Nunca usa linguagem clínica ou de manual
 - Nunca afirma que houve traição
 - Nunca incentiva vigilância obsessiva
 - Nunca alimenta paranoia
-
+ 
 O QUE VOCÊ SEMPRE FAZ:
 - Acolhe antes de analisar
 - Percebe o que está nas entrelinhas
 - Fala como pessoa, não como sistema
 - Conduz à clareza com gentileza`;
-
+ 
 const modes = {
   suspicion: {
     badge:'🔍 Modo: Estou desconfiando',
@@ -314,15 +470,15 @@ const modes = {
     system: CLARA_BASE + '\n\nMODO: SOS EMOCIONAL — crise aguda. SEQUÊNCIA: 1) Acolha genuinamente 2) Desacelere o ritmo emocional 3) Organize pensamentos 4) Reduza impulsividade 5) Conduza à clareza. NUNCA alimente o caos ou incentive contato impulsivo. Tom: extremamente calmo, presente, humano.'
   }
 };
-
+ 
 const sosKeywords = ['não aguento','não consigo mais','estou no limite','quero morrer','desespero','desesperada','estou mal demais','crise','socorro','preciso de ajuda agora','vou enlouquecer','estou surtando'];
 const thinkingPhrases = ['Clara está pensando…','Deixa eu pensar nisso…','Hm… processando o que você disse…','Clara está aqui…','Refletindo sobre isso…','Um segundo…'];
 let thinkingIdx = 0;
-
+ 
 function detectSOS(text) {
   return sosKeywords.some(k => text.toLowerCase().includes(k));
 }
-
+ 
 // SPLASH
 document.querySelectorAll('.mode-chip[data-mode]').forEach(c => {
   c.addEventListener('click', () => {
@@ -331,7 +487,7 @@ document.querySelectorAll('.mode-chip[data-mode]').forEach(c => {
     currentMode = c.dataset.mode;
   });
 });
-
+ 
 document.getElementById('startBtn').addEventListener('click', () => {
   document.getElementById('splash').classList.add('hidden');
   setTimeout(() => {
@@ -339,8 +495,8 @@ document.getElementById('startBtn').addEventListener('click', () => {
     setTimeout(() => document.getElementById('nameInput').focus(), 300);
   }, 400);
 });
-
-// NAME
+ 
+// NOME
 document.getElementById('saveNameBtn').addEventListener('click', () => {
   userName = document.getElementById('nameInput').value.trim();
   document.getElementById('nameCapture').classList.remove('visible');
@@ -354,7 +510,7 @@ document.getElementById('skipNameBtn').addEventListener('click', () => {
 document.getElementById('nameInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') document.getElementById('saveNameBtn').click();
 });
-
+ 
 function launchApp() {
   setTimeout(() => {
     document.getElementById('app').classList.add('visible');
@@ -364,27 +520,27 @@ function launchApp() {
     updateModeUI();
   }, 300);
 }
-
+ 
 function updateModeUI() {
   document.getElementById('welcomeBadge').textContent = modes[currentMode].badge;
   if (currentMode === 'sos') document.getElementById('sosBanner').classList.add('active');
   else document.getElementById('sosBanner').classList.remove('active');
   renderSuggestions();
 }
-
+ 
 function renderSuggestions() {
   const c = document.getElementById('suggestions');
   c.innerHTML = modes[currentMode].suggestions.map(s => `<button class="suggestion-chip">${s}</button>`).join('');
   c.querySelectorAll('.suggestion-chip').forEach(b => b.addEventListener('click', () => sendMessage(b.textContent)));
 }
-
+ 
 document.getElementById('closeSosBanner').addEventListener('click', () => document.getElementById('sosBanner').classList.remove('active'));
-
-const modeToggle = document.getElementById('modeToggle');
+ 
+const modeToggle   = document.getElementById('modeToggle');
 const modeDropdown = document.getElementById('modeDropdown');
 modeToggle.addEventListener('click', e => { e.stopPropagation(); modeDropdown.classList.toggle('open'); });
 document.addEventListener('click', () => modeDropdown.classList.remove('open'));
-
+ 
 modeDropdown.querySelectorAll('.dropdown-item').forEach(item => {
   item.addEventListener('click', () => {
     modeDropdown.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('active'));
@@ -401,45 +557,49 @@ modeDropdown.querySelectorAll('.dropdown-item').forEach(item => {
     document.getElementById('suggestions').style.display = 'flex';
   });
 });
-
+ 
 const msgInput = document.getElementById('msgInput');
-const sendBtn = document.getElementById('sendBtn');
+const sendBtn  = document.getElementById('sendBtn');
 const chatArea = document.getElementById('chatArea');
-
-msgInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (!isLoading) sendMessage(msgInput.value.trim()); } });
-msgInput.addEventListener('input', () => { msgInput.style.height = 'auto'; msgInput.style.height = Math.min(msgInput.scrollHeight, 140) + 'px'; });
+ 
+msgInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (!isLoading) sendMessage(msgInput.value.trim()); }
+});
+msgInput.addEventListener('input', () => {
+  msgInput.style.height = 'auto';
+  msgInput.style.height = Math.min(msgInput.scrollHeight, 140) + 'px';
+});
 sendBtn.addEventListener('click', () => { if (!isLoading) sendMessage(msgInput.value.trim()); });
-
+ 
 renderSuggestions();
-
+ 
 async function sendMessage(text) {
   if (!text || isLoading) return;
   msgInput.value = ''; msgInput.style.height = 'auto';
-
+ 
   const wc = document.getElementById('welcomeCard');
   if (wc) wc.style.display = 'none';
   document.getElementById('suggestions').style.display = 'none';
-
+ 
   const isSOS = detectSOS(text);
   if (isSOS) document.getElementById('sosBanner').classList.add('active');
-
+ 
   appendMsg('user', text);
   messages.push({ role:'user', content:text });
-
+ 
   let systemPrompt = modes[isSOS ? 'sos' : currentMode].system;
   if (userName) systemPrompt += `\n\nO nome da usuária é: ${userName}. Use com naturalidade.`;
   if (sessionMemory.length > 0) {
     systemPrompt += '\n\nCONTEXTO DA CONVERSA:\n' + sessionMemory.slice(-3).map((m,i) => `[${i+1}] Ela disse: "${m.slice(0,80)}…"`).join('\n');
   }
-
+ 
   await delay(400 + Math.random() * 500);
   const thinking = appendThinking();
   isLoading = true; sendBtn.disabled = true;
-
+ 
   if (isSOS) await delay(1200);
-
+ 
   try {
-    // ✅ CHAMA O SERVIDOR — sua chave fica segura, cliente não vê nada
     const res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -450,28 +610,28 @@ async function sendMessage(text) {
         messages
       })
     });
-
+ 
     const data = await res.json();
     if (data.error) throw new Error(data.error.message || JSON.stringify(data.error));
-
+ 
     const aiText = data.content[0].text;
     await delay(Math.min(aiText.length * 7, 1200));
-
+ 
     thinking.remove();
     appendMsg('ai', aiText, isSOS ? 'sos' : '');
     messages.push({ role:'assistant', content:aiText });
     sessionMemory.push(text);
-
+ 
     if (messages.length === 12) showCheckin();
-
+ 
   } catch(err) {
     thinking.remove();
     appendMsg('ai', `Hm… tive um pequeno problema técnico. Tenta de novo em um segundo?\n\n_(${err.message})_`);
   }
-
+ 
   isLoading = false; sendBtn.disabled = false; msgInput.focus();
 }
-
+ 
 function showCheckin() {
   const name = userName ? `, ${userName}` : '';
   const card = document.createElement('div');
@@ -480,9 +640,9 @@ function showCheckin() {
   chatArea.appendChild(card);
   chatArea.scrollTop = chatArea.scrollHeight;
 }
-
+ 
 function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
-
+ 
 function appendMsg(role, text, extra = '') {
   const isUser = role === 'user';
   const div = document.createElement('div');
@@ -492,7 +652,7 @@ function appendMsg(role, text, extra = '') {
   chatArea.scrollTop = chatArea.scrollHeight;
   return div;
 }
-
+ 
 function appendThinking() {
   const phrase = thinkingPhrases[thinkingIdx++ % thinkingPhrases.length];
   const div = document.createElement('div');
@@ -502,9 +662,15 @@ function appendThinking() {
   chatArea.scrollTop = chatArea.scrollHeight;
   return div;
 }
-
+ 
 function fmt(t) {
-  return t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/_(.*?)_/g,'<em>$1</em>').replace(/\n\n/g,'</p><p style="margin-top:10px">').replace(/\n/g,'<br>').replace(/^(.+)$/,'<p>$1</p>');
+  return t
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g,'<em>$1</em>')
+    .replace(/_(.*?)_/g,'<em>$1</em>')
+    .replace(/\n\n/g,'</p><p style="margin-top:10px">')
+    .replace(/\n/g,'<br>')
+    .replace(/^(.+)$/,'<p>$1</p>');
 }
 </script>
 </body>
